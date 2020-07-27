@@ -24,9 +24,9 @@ function lengthOfLongestSubstring(s) {
     return len;
 };
 
-console.log(lengthOfLongestSubstring(test1));
-console.log(lengthOfLongestSubstring(test2));
-console.log(lengthOfLongestSubstring(test3));
+// console.log(lengthOfLongestSubstring(test1));
+// console.log(lengthOfLongestSubstring(test2));
+// console.log(lengthOfLongestSubstring(test3));
 
 var lengthOfLongestSubstring2 = function(s) {
     if (s === '') {
@@ -83,3 +83,21 @@ var lengthOfLongestSubstring3 = function(s) {
     }
     return len;
 };
+
+const test = ' ';
+function lengthOfLongestSubstring(s) {
+    const subMap = new Map();
+    let len = 0;
+    let l = 0; // [l, ..., r]保存无重复元素的子串
+    let r = -1;
+    while(r + 1 < s.length) {
+        r++;
+        if (subMap.has(s[r]) && subMap.get(s[r]) + 1 > l) {
+            l = subMap.get(s[r]) + 1;
+        }
+        len = Math.max(r - l + 1, len);
+        subMap.set(s[r], r);
+    }
+    return len;
+}
+console.log(lengthOfLongestSubstring(test));
