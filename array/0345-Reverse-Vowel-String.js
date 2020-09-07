@@ -22,3 +22,33 @@ var reverseVowels = function(s) {
     }
     return sArr.join('');
 };
+
+
+var reverseVowels1 = function(s) {
+    const pattern = /^[aeiouAEIOU]$/
+    const strArr = s.split('');
+    let i = 0;
+    let j = s.length - 1;
+    while(i <= j) {
+        console.log(strArr[i], strArr[j]);
+        console.log(i, j);
+        if (pattern.test(strArr[i]) && pattern.test(strArr[j])) {
+            const temp = strArr[i];
+            strArr[i] = strArr[j];
+            strArr[j] = temp;
+            i++;
+            j--;
+        }
+        if (!pattern.test(strArr[i])) {
+            i++;
+
+        }
+        if (!pattern.test(strArr[j])) {
+            j--;
+        }
+    }
+    console.log('strArr', strArr);
+    return strArr.join('');
+};
+
+console.log(reverseVowels1('race a car'));

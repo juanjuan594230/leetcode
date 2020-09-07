@@ -100,4 +100,59 @@ function lengthOfLongestSubstring(s) {
     }
     return len;
 }
-console.log(lengthOfLongestSubstring(test));
+// console.log(lengthOfLongestSubstring(test));
+
+function lengthOfLongestSubstring5(s) {
+    const charMap = new Map();
+    let longestSubstrLen = 0;
+    let i = 0;
+    let j = -1; // [i,...,j]中保存当前无重复元素的子数组
+    while(i < s.length) {
+        if (j + 1 < s.length) {
+            if (charMap.get(s[j + 1]) === undefined) {
+                j++;
+                charMap.set(s[j], j);
+            } else {
+                j++;
+                if (charMap.get(s[j]) >= i) {
+                    i = charMap.get(s[j]) + 1; // 错在不判断当前重复的元素是否在子串中，就给i赋值
+                }
+                charMap.set(s[j], j);
+            }
+            longestSubstrLen = Math.max(longestSubstrLen, j - i + 1);
+        } else {
+            longestSubstrLen = Math.max(longestSubstrLen, j - i + 1);
+            break;
+        }
+    }
+    // 优化1
+    // while(i < s.length) {
+    //     if (j + 1 < s.length) {
+    //         j++;
+    //         if (charMap.has(s[j]) && charMap.get(s[j]) >= i) {
+    //             i = charMap.get(s[j]) + 1;
+    //         }
+    //         charMap.set(s[j], j);
+    //         longestSubstrLen = Math.max(longestSubstrLen, j - i);
+    //     } else {
+    //         longestSubstrLen = Math.max(longestSubstrLen, j - i + 1);
+    //         break;
+    //     }
+    // }
+    // 优化2
+    // while (j + 1 < s.length) {
+    //     j++;
+    //     if (charMap.has(s[j]) && charMap.get(s[j]) >= i) {
+    //         i = charMap.get(s[j]) + 1;
+    //     }
+    //     charMap.set(s[j], j);
+    //     longestSubstrLen = Math.max(longestSubstrLen, j - i);
+    // }
+    // return longestSubstrLen;
+}
+
+// console.log(lengthOfLongestSubstring5('abcabcbb'));
+// console.log(lengthOfLongestSubstring5('bbbbbb'));
+// console.log(lengthOfLongestSubstring5('pwwkew'));
+// console.log(lengthOfLongestSubstring5(' '));
+console.log(lengthOfLongestSubstring5('abba'));
