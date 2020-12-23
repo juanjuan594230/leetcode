@@ -155,4 +155,39 @@ function lengthOfLongestSubstring5(s) {
 // console.log(lengthOfLongestSubstring5('bbbbbb'));
 // console.log(lengthOfLongestSubstring5('pwwkew'));
 // console.log(lengthOfLongestSubstring5(' '));
-console.log(lengthOfLongestSubstring5('abba'));
+// console.log(lengthOfLongestSubstring5('abba'));
+
+// 20200907 review
+function lengthOfLongestSubstring907(s) {
+    const map = {};
+    let len = 0;
+    let i = 0;
+    let j = -1;
+    while(j + 1 < s.length) {
+        // if(map[s[j + 1]] === undefined) {
+        //     map[s[j + 1]] = j + 1;
+        //     j++;
+        //     len = Math.max(len, j - i + 1);
+        // } else {
+        //     const repeatIndex = map[s[j + 1]];
+        //     i = i >= repeatIndex + 1 ? i : repeatIndex + 1; // 这一步一定要考虑啊
+        //     map[s[j + 1]] = j + 1;
+        //     j++;
+        //     len = Math.max(len, j - i + 1);
+        // }
+        j++;
+        if (map[s[j]] !== undefined && map[s[j]] >= i) {
+            const repeatIndex = map[s[j]];
+            i = repeatIndex + 1;
+        }
+        map[s[j]] = j;
+        len = Math.max(len, j - i + 1);
+    }
+    return len;
+}
+
+console.log(lengthOfLongestSubstring907('abcabcbb')); //
+console.log(lengthOfLongestSubstring907('bbbbbb')); //
+console.log(lengthOfLongestSubstring907('pwwkew')); //
+console.log(lengthOfLongestSubstring907(' ')); //
+console.log(lengthOfLongestSubstring907('abba')); //
